@@ -19,9 +19,9 @@ int main(int argc, const char * argv[])
     struct stat statbuf;
     mode_t modes;
     
-    stat("myfiles", &statbuf);
+    stat("myfiles", &statbuf);//返回通过文件名查找到的状态信息并保存到statbuf缓冲区
     modes = statbuf.st_mode;
-    if (!S_ISDIR(modes) && (modes & S_IRWXU) == S_IXUSR)
+    if (!S_ISDIR(modes) && (modes & S_IRWXU) == S_IXUSR)//文件不是一个目录并且属主具有执行权限
     {
         printf("pass!\n");
     }

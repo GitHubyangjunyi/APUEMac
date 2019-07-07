@@ -15,16 +15,16 @@ int main(int argc, const char * argv[]) {
     
     open("myfile", O_CREAT, S_IRUSR | S_IXOTH);//请求属主可读，其他用户可执行
     open("myfilex", O_CREAT, S_IRUSR | S_IWGRP | S_IWOTH | S_IXOTH);//请求属主可读，组可写，其他用户可写可执行
-    //umask值是0022（八进制），所以文件所属组和其他用户都不能写这个文件，即使明确指定要创建文件所属组和其他用户都能写的情况下
+    //由于系统的umask值是0022（八进制），所以文件所属组和其他用户都不能写这个文件，即使明确指定要创建文件所属组和其他用户都能写的情况下
     open("x", O_CREAT, S_IRUSR | S_IWUSR | S_IXUSR | S_IRGRP | S_IWGRP | S_IXGRP | S_IROTH | S_IWOTH | S_IXOTH);//请求全部权限
     //测试文件代表的不是一个目录且只设置了属主执行权限
     open("myfiles", O_CREAT, S_IXUSR);//请求属主可执行
     struct stat statbuf;
     mode_t modes;
     
-    stat("myfiles", &statbuf);
+    stat("myfiles", &statbuf);//返回通过文件名查找到的状态信息并保存到statbuf缓冲区
     modes = statbuf.st_mode;
-    if (!S_ISDIR(modes) && (modes & S_IRWXU) == S_IXUSR)
+    if (!S_ISDIR(modes) && (modes & S_IRWXU) == S_IXUSR)//文件不是一个目录并且属主具有执行权限
     {
         printf("pass!\n");
     }
@@ -48,4 +48,3 @@ int main(int argc, const char * argv[]) {
 //-r-------x  1 yangjunyi  staff      0  6 12 14:34 myfile
 //-r-------x  1 yangjunyi  staff      0  6 12 14:34 myfilex
 //-rwxr-xr-x  1 yangjunyi  staff      0  6 12 14:34 x
-

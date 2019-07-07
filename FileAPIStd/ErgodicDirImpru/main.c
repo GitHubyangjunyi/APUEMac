@@ -49,7 +49,7 @@ void printdir(const char *dir, int depth)
 int main(int argc, const char * argv[])
 {
     
-    const char *topdir = ".";
+    const char *topdir = ".";//默认使用当前文件夹,也可以使用命令行参数指定要遍历的文件夹
     if (argc >= 2) {
         topdir = argv[1];
     }
