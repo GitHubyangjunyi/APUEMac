@@ -12,7 +12,11 @@ void strcat(char s[], char t[]);
 
 int main(int argc, const char * argv[]) {
     
-    
+//    char *sp = "abc";
+//    char *sn = "xdef";
+//
+//    strcat(sp, sn);
+//    printf("%s\n", sp);
     
     
     return 0;
@@ -29,3 +33,4 @@ void strcat(char s[], char t[])
 }
 
 //将字符串T连接到字符串S的尾部,S必须有足够大的空间
+//标准库中的该函数返回指向新字符串的指针

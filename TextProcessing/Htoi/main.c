@@ -15,8 +15,9 @@ int htoi(char s[]);
 
 int main(int argc, const char * argv[]) {
     
-    printf("%d\n", Htoi("1A"));
-    
+    printf("%d\n", htoi("1A"));
+    printf("%d\n", htoi("0x1A"));
+    printf("%d\n", htoi("0X1A"));
     
     return 0;
 }
@@ -25,7 +26,7 @@ int htoi(char s[])
 {
     int i;
     int n;
-    int hexdigit;
+    int hexdigit = 0;
     int inhex;
     
     i = 0;

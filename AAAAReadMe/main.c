@@ -39,21 +39,41 @@ int main(int argc, const char * argv[]) {
 //    printf("%s\n", s);
     
     
+//    int *a = malloc(sizeof(int));
+//    *a = 100;
+//
+//    int *b = malloc(sizeof(int));
+//    *b = 2;
+//
+//    free(a);
+//
+//    int *c = malloc(sizeof(int));
+//    *c = 30;
+//
+//
+//    printf("%d, %d, %d\n", *a, *b, *c);
     
     
-    int *a = malloc(sizeof(int));
-    *a = 100;
+    int a[10];
     
-    int *b = malloc(sizeof(int));
-    *b = 2;
+    int *p = &a;
     
-    free(a);
+    int *pa = a;
     
-    int *c = malloc(sizeof(int));
-    *c = 30;
+    int *px = &a[1];
+    
+    printf("%p\n", p);
+    
+    printf("%p\n", pa);
+    
+    printf("%p\n", px);
     
     
-    printf("%d, %d, %d\n", *a, *b, *c);
+    
+    
+    
+    
+    
     
     
     
@@ -68,10 +88,13 @@ int main(int argc, const char * argv[]) {
 }
 
 //新建Xcode项目，然后使用target管理不同的小项目，每个target将运行不同的main函数
+//最好新建一个target就进行排序,并且在Manage Schemes处以及APUEMac项目管理处将target排序防止工程越来越乱
+//最好新建一个target就进行排序,并且在Manage Schemes处以及APUEMac项目管理处将target排序防止工程越来越乱
+//最好新建一个target就进行排序,并且在Manage Schemes处以及APUEMac项目管理处将target排序防止工程越来越乱
 
 /*
  //参考书目:
-//The C Programming Language Brian W.Kernighan/Dennis M.Ritchie 著
+//The C Programming Language Brian W.Kernighan/Dennis M.Ritchie 著 项目名称后面的Pxxx表示在本书的第xxx页
 //数据结构与算法分析新视角 周幸妮/任智源/马彦卓/樊凯 著
 //C Primer Plus Stephen Prata 著
 //C和指针 Kenneth A.Reek 著
@@ -132,7 +155,7 @@ int main(int argc, const char * argv[]) {
 //            ~             按位取反运算符    ~表达式
 //            ++            自增运算符      ++变量名/变量名++
 //            --            自减运算符      --变量名/变量名--
-//            *             取值运算符       *指针变量
+//            *             间接寻址或间接引用运算符       *指针变量
 //            &             取地址运算符     &变量名
 //            !             逻辑非运算符     !表达式
 //            (类型)         强制类型转换   (数据类型)表达式
@@ -200,13 +223,13 @@ int main(int argc, const char * argv[]) {
         //0//ArraySumRecursion      数组求和,线性递归
         //6//FibonacciRecursion     斐波那契数列低效率递归版
         //3//ItoaRecursion          通过递归调用将整数转换成字符串
-        //1//Printd                 打印十进制数
-        //4//ReverseRecursion       递归版本的reverse函数,将字符串s倒置(相关TextProcessing/Reverse reverse函数,将字符串s倒置)
+        //1//Printd                 打印十进制数 P74
+        //4//ReverseRecursion       递归版本的reverse函数,将字符串s倒置(相关TextProcessing/Reverse reverse函数,将字符串s倒置) 练习4-13
 //ArrayPointer      数组指针操作
 //BitsProcessing    位处理
     //假定最右边的一位是第0位,getbits(x,4,3)返回第4,3,2位,方向是从左到右,从左到右,从左到右
     //5//BitCount           统计x中值为1的二进制位数 练习2-9
-    //1//Getbits            返回x中从第p位开始的n位
+    //1//Getbits            返回x中从第p位开始的n位 P39
     //3//Invert             返回对x执行下列操作后的结果值:将x中从第p位开始的n个位求反,x的其余各位保持不变 练习2-7
     //4//Rightrot           返回将x循环右移n位后得到的值 练习2-8
     //2//Setbits            返回对X执行下列操作后的结果值:将x中从第p位开始的n个位设置为y中最右边n位的值,x的其余各位保持不变 练习2-6
@@ -214,9 +237,13 @@ int main(int argc, const char * argv[]) {
 //BlockStructureFix 作用域规则static
 //BlockStructurePro 作用域规则之程序员的自我修养
 //Calculator        计算器
-    //2//CalculatorDivision 拆分版本
+    //3//CalculatorCommand  添加栈操作命令 练习4-4
+    //x//CalculatorDivision 拆分版本
+    //4//CalculatorMath     添加库函数操作 练习4-5
     //1//CalculatorOne      初始版本
-//ConditionalCompilation    条件编译
+    //2//CalculatorTwo      添加取模%运算 练习4-3
+    //5//CalculatorVar      添加变量处理命令 练习4-6
+//ConditionalCompilation    条件编译规则说明
 //ConstRestrict     const限定
 //EOFS              EOF测试
 //FileAPI           系统调用文件API
@@ -305,6 +332,7 @@ int main(int argc, const char * argv[]) {
     //10//MallocTest            返回局部量的地址的函数测试用例
     //11//MallocTestTwo         返回局部量的地址的函数测试用例
     //1//MemoryLeak             内存泄漏的各种姿势,过度分配,内存丢失跟踪,完全丢失地址,丢失起始地址,隐式泄漏
+    //12//PointerArithmeticOoperation 地址算术运算(使用内建数组进行内存分配) P86
     //0//NULLPointer            空指针的逻辑取反操作(来自知乎)
     //4//Realloc                内存块重新分配
 //Memset            内存块操作函数memset
@@ -322,10 +350,14 @@ int main(int argc, const char * argv[]) {
     //1//MultiThreadCounter     多线程计数器冲突
     ////
 //Search                搜索
-    //1//Binsearch              折半查找(数组v必须以升序排列) 练习3-1
+    //1//Binsearch              折半查找(数组v必须以升序排列) 练习3-1 P47
 //Sort                  排序算法
-    //QuickSort                 快速排序(C.A.R.Hoare于1962年) P74
-    //ShellSort                 Shell排序(D.L.Shell于1959年) P51
+    //4//BubbleSort             冒泡排序 数据结构与算法分析新视角P404
+    //1//InsertSort             插入排序 扑克牌插入
+    //5//QuickSort              快速排序(C.A.R.Hoare于1962年) P74
+    //6//QuickSortTwo           快速排序 数据结构与算法分析新视角P406
+    //3//ShellSort              Shell排序(D.L.Shell于1959年) P51
+    //2//ShellSortPro           希尔排序 数据结构与算法分析新视角P402
 //StackAndQueue         运算受限的线性表----栈和队列
     //队列
         //5//LinkedQueue        链队列
@@ -341,6 +373,13 @@ int main(int argc, const char * argv[]) {
         //3//StackConversion    数制转换
         //4//StackRecursion     栈实现递归
     //环形队列相关算法是固定缓冲区读写的常用模式
+//StringFunction        字符串算法(主要是从第五章开始)
+    //4//Getfloat               Getint的浮点数版本 练习5-2
+    //2//Getint                 将输入的字符流分解成整数 P81
+    //3//GetintFix              将输入的字符流分解成整数 练习5-1
+    ////Strcmp                  strcmp函数返回值测试
+    //1//Strlen                 字符串长度 P85 P88关于使用指针的差值计算字符串长度 size_t的由来
+    ////
 //StructureSet  结构
     //5//BitField               位域
     //1//StructPointers         指向结构的指针以及运算符->
@@ -355,6 +394,7 @@ int main(int argc, const char * argv[]) {
 //TextProcessing    文本处理
     //标准库提供的输入/输出模型:
     //无论文本从何处输入,输出到何处,其输入/输出都是按照字符流的方式处理,文本流是多行字符构成的字符序列,而每行字符则由0个或多个字符组成,行末是一个换行符
+    //标准库保证输入文本流以行序列的形式出现,每一行m均以一个换行符结束,每一行至少包含一个字符,只包含换行符的行长度为1
     //getchar()函数从文本流中读入下一个输入字符,并将其作为结果值返回
     //putchar(c)将把整型变量c的内容以字符的形式打印出来
 
@@ -365,11 +405,11 @@ int main(int argc, const char * argv[]) {
     //且第一个Ctrl+Z作为ASCII码为26字符并入前面输入,并且在第一个Ctrl+Z后输入的字符和回车将不存入当前行,但输入回车有换行效果
     //Linux下用Ctrl+D
 
-    //37//Atof                      将数字串s转换成相应的双精度浮点数,包括简单计算器程序 练习4-2
-    //25//Atoi                      将数字串S转换成相应的整型数
-    //10//CharClassifiedStatistics  字符分类统计:统计各个数字,空白符及其他字符出现的次数
+    //37//Atof                      将数字串s转换成相应的双精度浮点数,包括简单计算器程序 练习4-2 关于函数声明与定义的参数检查机制
+    //25//Atoi                      将数字串S转换成相应的整型数 P33/50
+    //10//CharClassifiedStatistics  字符分类统计:统计各个数字,空白符及其他字符出现的次数 P15
     //30//CharClassifiedStatisticsSwitch  字符分类统计:统计各个数字,空白符及其他字符出现的次数(Switch版) P48
-    //2//CharCount                  字符统计
+    //2//CharCount                  字符统计 P12
     //23//DeleteNote                功能是删除注释 练习1-23
     //20//Detab                     将输入中的制表符替换成适当数目的空格,使空格充满到下一个制表符终止的地方 练习1-20(扩展练习5-11和5-12)
     //21//Entab                     将空格串替换为最少数量的制表符和空格,但要保持单词之间的间隔不变 练习1-21(扩展练习5-11和5-12)
@@ -382,27 +422,26 @@ int main(int argc, const char * argv[]) {
     //12//Histogram                 单词长度直方图(水平):打印输入中单词长度的直方图 练习1-13
     //13//HistogramVersionTwo       单词长度直方图(垂直):打印输入中单词长度的直方图 练习1-13
     //26//Htoi                      把十六进制组成的字符串(包含可选的前缀0x或0X)转换为与之等价的整型值 练习2-3
-    //1//InputCopy                  将输入复制到输出
-    //34//Itoa                      itoa函数将数字n转换为字符串并保存到s中,itoax函数可以接收三个参数,第三个参数为最小字段宽度,在必要时应在所得结果的左边填充一定的空格 练习3-4 3-6 P52
+    //1//InputCopy                  将输入复制到输出 P10
+    //34//Itoa                      itoa函数将数字n转换为字符串并保存到s中,itoax函数可以接收三个参数,第三个参数为最小字段宽度,在必要时应在所得结果的左边填充一定的空格 P52 练习3-4 3-6
     //33//Itob                      itob(n, s, b)将整数n转换为以b为底的数,并将转换结果以字符形式保存到字符串s中,b控制进制 练习3-5
-    //3//LineCount                  行统计
+    //3//LineCount                  行统计 P13
     //8//OneLineOneWord             每行一个单词打印输入 练习1-12
     //9//OneLineOneWordVersionTwo   每行一个单词打印输入版本二
     //17//PrintGreatInputLine       打印长度大于80个字符的所有输入行 练习1-17
-    //15//PrintTheLongestInputLine  打印最长输入行
-    //14//PrintTheLongestInputLineExtern 打印最长输入行(使用外部变量版,失去通用性)
+    //14//PrintTheLongestInputLine  打印最长输入行 P21
+    //15//PrintTheLongestInputLineExtern 打印最长输入行(使用外部变量版,并将所操纵的变量名直接写入函数,导致失去通用性) P23
     //16//PrintTheLongestInputLineVersionTwo 打印最长输入行版本二,可以打印任意长度的输入行的长度,并尽可能多地打印文本 练习1-16
-    //19//Reverse                   将字符串S中的字符顺序颠倒过来,每次颠倒一个输入行中的字符顺序 练习1-19
+    //19//Reverse                   将字符串S中的字符顺序颠倒过来,每次颠倒一个输入行中的字符顺序 练习1-19/P51
     //24//SignPairDetection         符号配对检测 练习1-24
     //5//SpaceSubstitution          多空格用单空格替换 练习1-9
-    //27//Squeeze                   从字符串S中删除字符C
+    //27//Squeeze                   从字符串S中删除字符C P37
     //4//STNCount                   空格,制表符以及换行符统计 练习1-8
-    //28//Strcat                    将字符串T连接到字符串S的尾部,S必须有足够大的空间
-    //38//Strcmp                    strcmp函数返回值测试
-    //36//Strindex                  strindex(s,t)函数返回字符串t在字符串s中的出现的开始位置或索引,当s不包含t时返回-1 练习4-1
+    //28//Strcat                    将字符串T连接到字符串S的尾部,S必须有足够大的空间 P38
+    //36//Strindex                  strindex(s,t)函数返回字符串t在字符串s中的出现的开始位置或索引,当s不包含t时返回-1 练习4-1 关于模式匹配P57
     //29//Strpbrk                   将字符串S2中的任一字符在字符串S1中第一次出现的位置作为结果返回,如果S1中不包含S2中的字符,返回-1  练习2-5
     //35//Trim                      删除字符串尾部的空格符,制表符和换行符 P53
-    //7//WordCount                  单词数行数字符数统计
+    //7//WordCount                  单词数行数字符数统计 P14
 //Tree          树
     ////BinaryTree          二叉树
     ////HuffmanTree         哈夫曼树

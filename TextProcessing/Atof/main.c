@@ -7,17 +7,19 @@
 //
 
 #include <stdio.h>
+#include <stdlib.h>
 #include <ctype.h>
 
 #define MAXLINE 100
 
 double atofs(char s[]);
 double atofsx(char s[]);
-int getline(char line[], int max);
+int getlines(char line[], int max);
 
 int main(int argc, const char * argv[]) {
     
-    double atof(char s[]);//需要显示声明返回值类型,把这一行注释掉下面的输出将是无意义的,此时使用的是标准库中的atof函数
+    double atof(const char *);//Macos下使用这一个在stdlib中声明的函数原型
+    //double atof(char s[]);//需要显示声明返回值类型,把这一行注释掉下面的输出将是无意义的,此时使用的是标准库中的atof函数
     printf("%lf\n", atof("234.5"));
     
     printf("%lf\n", atofs("234.5"));
@@ -25,13 +27,13 @@ int main(int argc, const char * argv[]) {
     printf("%lf\n", atofsx("234.5e+6"));
     
     
-    ////简单计算器:在每行中读取一个数,并对它们求和////
+    ////简单计算器:在每行中读取一个数(数的前面可能有正负号),并对它们求和////
     double sum, atofs(char[]);
     char line[MAXLINE];
-    int getline(char line[], int max);
+    int getlines(char line[], int max);
     
     sum = 0;
-    while (getline(line, MAXLINE) > 0)
+    while (getlines(line, MAXLINE) > 0)
     {
         printf("\t%g\n", sum += atofs(line));
     }
@@ -47,23 +49,23 @@ double atofs(char s[])//将数字串s转换成相应的双精度浮点数
     
     for (i = 0; isspace(s[i]); i++)//跳过空白符
         ;
-    sign = (s[i] == '-') ? -1 : 1;
-    if (s[i] == '+' || s[i] == '-')
+    sign = (s[i] == '-') ? -1 : 1;//判断正负数
+    if (s[i] == '+' || s[i] == '-')//选择性跳过正负号
         i++;
-    for (val == 0.0; isdigit(s[i]); i++)
+    for (val == 0.0; isdigit(s[i]); i++)//统计小数点前的数值
         val = 10.0 * val + (s[i] - '0');
-    if (s[i] == '.')
+    if (s[i] == '.')//如果有小数点则跳过
         i++;
     for (power = 1.0; isdigit(s[i]); i++)
     {
         val = 10.0 *  val + (s[i] - '0');
-        power *= 10.0;
+        power *= 10.0;//记录一次小数点
     }
     
     return sign * val / power;
 }
 
-double atofsx(char s[])//对atofs函数的扩充,可以处理形如123.45e+6的科学表示法
+double atofsx(char s[])//对atofs函数的扩充,可以处理形如123.45e+6的科学表示法,其中浮点数后面可能会紧跟着一个e或E以及一个指数(可能有正负号)
 {
     double val, power;
     int i, exp, sign;
@@ -71,28 +73,28 @@ double atofsx(char s[])//对atofs函数的扩充,可以处理形如123.45e+6的�
     
     for (i = 0; isspace(s[i]); i++)//跳过空白符
         ;
-    sign = (s[i] == '-') ? -1 : 1;
-    if (s[i] == '+' || s[i] == '-')
+    sign = (s[i] == '-') ? -1 : 1;//判断正负数
+    if (s[i] == '+' || s[i] == '-')//选择性跳过正负号
         i++;
-    for (val == 0.0; isdigit(s[i]); i++)
+    for (val == 0.0; isdigit(s[i]); i++)//统计小数点前的数值
         val = 10.0 * val + (s[i] - '0');
-    if (s[i] == '.')
+    if (s[i] == '.')//如果有小数点则跳过
         i++;
     for (power = 1.0; isdigit(s[i]); i++)
     {
         val = 10.0 *  val + (s[i] - '0');
-        power *= 10.0;
+        power *= 10.0;//记录一次小数点
     }
     val= sign * val / power;
     
     if (s[i] == 'e' || s[i] == 'E')//如果有指数部分则进行进一步计算
     {
-        sign = (s[++i] == '-') ? -1 : 1;
-        if (s[i] == '+' || s[i] == '-')
+        sign = (s[++i] == '-') ? -1 : 1;//判断指数部分的正负号
+        if (s[i] == '+' || s[i] == '-')//选择性跳过正负号
             i++;
-        for (exp = 0; isdigit(s[i]); i++)
+        for (exp = 0; isdigit(s[i]); i++)//获得指数值
             exp = 10 * exp + (s[i] - '0');
-        if (sign == 1)
+        if (sign == 1)//获得最终值
             while (exp-- > 0 )
                 val *= 10;
         else
@@ -103,10 +105,10 @@ double atofsx(char s[])//对atofs函数的扩充,可以处理形如123.45e+6的�
     return val;//如果没有指数部分直接返回
 }
 
-int getline(char line[], int max)//将行保存到line中并返回该行的长度
+int getlines(char line[], int max)//将行保存到line中并返回该行的长度
 {
     int c, i;
-    i = 0;
+    c = i = 0;
     while (--max > 0 && (c = getchar()) != EOF && c != '\n')
         line[i++] = c;
     if (c == '\n')

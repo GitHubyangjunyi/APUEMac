@@ -15,7 +15,6 @@ int getline(char line[], int maxline);
 
 int main(int argc, const char * argv[]) {
     
-    
     int len;
     char line[MAXLINE];
     

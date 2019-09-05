@@ -57,7 +57,7 @@ int binsearchs(int x, int v[], int n)
         mid = (low + hight) / 2;
     }
     
-    if(x == v[mid])
+    if(x == v[mid])//判断是否是因为在数组中找到v才终止循环的
         return mid;
     else
         return -1;

@@ -16,7 +16,7 @@ int main(int argc, const char * argv[]) {
     char ss[26] = " ";
     expand(s, ss);
     printf("%s", ss);
-    
+    printf("\n");
     
     
     return 0;

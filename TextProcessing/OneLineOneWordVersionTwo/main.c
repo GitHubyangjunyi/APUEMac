@@ -36,3 +36,4 @@ int main(int argc, const char * argv[]) {
 }
 
 //每行一个单词打印输入版本二
+//有bug

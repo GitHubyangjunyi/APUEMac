@@ -16,7 +16,6 @@ void reverses(char s[]);
 
 int main(int argc, const char * argv[]) {
     
-
     char line[MAXLINE];//用来存放字符串
     
     while (getline(line, MAXLINE) > 0)

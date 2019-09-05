@@ -9,7 +9,7 @@
 #include <stdio.h>
 #include <ctype.h>
 
-#define MAXHIST 15    //直方图的最大长度
+#define MAXHIST 15  //直方图的最大长度
 #define MAXCHAR 128 //最大不同字符数量
 
 int main(int argc, const char * argv[]) {

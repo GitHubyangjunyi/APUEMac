@@ -18,7 +18,8 @@ int main(int argc, const char * argv[]) {
     reverserecursion(line);
     printf("%s\n", line);
     
-    char GETCHAR = getchar();
+    
+    
     return 0;
 }
 
@@ -52,3 +53,4 @@ void reverser(char s[], int i, int len)
 //字符串中的字符是按由外而内的顺序依次进行位置交换的,例如第一组交换位置的两个字符是s[0]和s[len-1],第二组交换的是s[2]和s[len-2]
 //每调用一次reverser,字符串从左端算起的索引i就加1
 //这一位置交换过程将移之重复到索引i,j指向同一个字符(i == j)或者索引i所指向的字符出现在索引j所指向的字符的右侧(i > j)为止
+//此处不适合用递归思想

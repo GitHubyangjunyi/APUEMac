@@ -11,27 +11,26 @@
 #include <ctype.h>
 
 #define MAXOP 100    //操作数或运算符的最大长度
-#define NUMBER '0'    //表示找到一个数
+#define NUMBER '0'  //表示找到一个数
 
 int getop(char[]);
 void push(double);
 double pop(void);
 int getch(void);
-void ungetch(int);
-
+void ungetchs(int);
 
 int main(int argc, const char * argv[]) {
     
     int type;
-    double op2;
-    char s[MAXOP];
+    double op2;//存放临时操作数
+    char s[MAXOP];//中转存放栈中的内容
     
     while ((type = getop(s)) != EOF)
     {
         switch (type)
         {
             case NUMBER:
-                push(atof(s));
+                push(atof(s));//将数值压入栈中再读栈中下一个内容
                 break;
             case '+':
                 push(pop() + pop());
@@ -41,7 +40,7 @@ int main(int argc, const char * argv[]) {
                 break;
             case '-':
                 op2 = pop();//减法不满足交换律,将第一个值弹出到临时变量中
-                push(pop() * pop());
+                push(pop() - op2);
                 break;
             case '/':
                 op2 = pop();//除法不满足交换律,将第一个值弹出到临时变量中
@@ -51,7 +50,7 @@ int main(int argc, const char * argv[]) {
                     printf("error: zero divisor\n");
                 break;
             case '\n':
-                printf("\t%.8g\n", pop());
+                printf("\t%.8g\n", pop());//到达输入行末尾将栈顶的值弹出并打印
                 break;
             default:
                 printf("error: unknown command %s\n", s);
@@ -90,10 +89,10 @@ int getop(char s[])//获取下一个运算符或数值操作数,需要跳过空�
 {
     int i, c;
     
-    while ((s[0] = c = getch()) == ' ' || c == '\t')
+    while ((s[0] = c = getch()) == ' ' || c == '\t')//跳过空格或者制表符
         ;
     s[1] = '\0';
-    if (!isdigit(c) && c != '.')//不是数
+    if (!isdigit(c) && c != '.')//不是数或不是小数点则返回操作符
         return c;
     i = 0;
     if (isdigit(c))//收集整数部分
@@ -103,8 +102,8 @@ int getop(char s[])//获取下一个运算符或数值操作数,需要跳过空�
         while (isdigit(s[++i] = c = getch()))
             ;
     s[i] = '\0';
-    if (c != EOF)
-        ungetch(c);
+    if (c != EOF)//如果c未到达末尾则反读一个字符
+        ungetchs(c);
     return NUMBER;
 }
 
@@ -122,10 +121,10 @@ int bufp = 0;        //buf中下一个空闲位置
 //标准库中提供了函数ungetc,将一个字符压回到栈中
 int getch(void)//取一个字符(可能是压回的字符)
 {
-    return (bufp > 0) ? buf[--bufp] : getchar();
+    return (bufp > 0) ? buf[--bufp] : getchar();//如果缓冲区没有字符再读,否则再次从输入中取数,如果缓冲区中有则从缓冲区读
 }
 
-void ungetch(int c)//把字符压回到输入中
+void ungetchs(int c)//把字符压回到输入中
 {
     if (bufp >= BUFSIZE)
         printf("ungetch: too many characters\n");
@@ -156,14 +155,12 @@ void ungetch(int c)//把字符压回到输入中
 //    else
 //        出错
 //
-//
 //栈的压入弹出比较简单,但是如果把错误检测和恢复操作都加进来程序就会显得很长了
 //最好把它们设计成独立的函数,另外还需要一个单独的函数来取得下一个输入的运算符或操作数
 //
 //另一个问题是把栈放在哪个位置,也就是说哪些例程可以直接访问它?
 //一种可能是把它放在主函数中,把栈及其当前位置作为参数传递给对它执行压入或弹出操作的函数,但是main函数不需要了解控制栈的变量信息,而只进行压入弹出操作
 //因此可以把栈及相关信息放在外部变量中,并只供push和pop访问,而main不能访问
-//
 //程序形式如下:
 //#include ...
 //#define ...
@@ -180,4 +177,3 @@ void ungetch(int c)//把字符压回到输入中
 //被getop调用的函数
 //
 //关于该程序更多信息以及如何分割到若干个源文件中的情况参见小项目BlockStructure
-//

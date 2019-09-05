@@ -16,7 +16,7 @@ int main(int argc, const char * argv[]) {
     int ndigit[10];//各个数字
     
     nwhite = nother = 0;
-    for ( i = 0; i < 10; ++i)//1.初始化数组为全0
+    for (i = 0; i < 10; ++i)//1.初始化数组为全0
     {
         ndigit[i] = 0;
     }

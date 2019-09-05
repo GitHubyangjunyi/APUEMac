@@ -26,19 +26,19 @@ int main(int argc, const char * argv[]) {
     pos = 0;
     while ((c = getchar()) != EOF)
     {
-        line[pos] = c;
-        if (c == '\t')
+        line[pos] = c;//将读到的当前字符存入数组line[10]中
+        if (c == '\t')//如果碰到制表符则将制表符扩展成空格并前进位置
             pos = exptab(pos);
-        else if (c == '\n')
+        else if (c == '\n')//如果碰到换行符则直接打印当前得到的行并重置pos为0
         {
             printl(pos);
             pos = 0;
         }
-        else if (++pos >= MAXCOL)
+        else if (++pos >= MAXCOL)//或者t下一个位置超出范围,++pos将会执行
         {
-            pos = findblnk(pos);
-            printl(pos);
-            pos = newpos(pos);
+            pos = findblnk(pos);//
+            printl(pos);//输出当前得到的行
+            pos = newpos(pos);//重置pos
         }
     }
     
@@ -46,14 +46,14 @@ int main(int argc, const char * argv[]) {
     return 0;
 }
 
-int exptab(int pos)
+int exptab(int pos)//将制表符替换成等价的空格并递增pos
 {
     line[pos] = ' ';
-    for ( ++pos; pos < MAXCOL && pos % TABINC != 0; ++pos)
+    for (++pos; pos < MAXCOL && pos % TABINC != 0; ++pos)
         line[pos] = ' ';
-    if (pos < MAXCOL)
+    if (pos < MAXCOL)//如果递增后的pos小于MAXCOL则返回pos
         return pos;
-    else
+    else//否则就表示pos已经到达折行处,打印当前得到的行并返回pos = 0
     {
         printl(pos);
         return 0;

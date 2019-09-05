@@ -16,7 +16,6 @@ int main(int argc, const char * argv[]) {
     
     
     
-    
     return 0;
 }
 
@@ -40,8 +39,9 @@ void squeezes(char s1[], char s2[])//将s1中任何与字符串s2中字符匹配
     {
         for (j = 0; s2[j] != '\0' && s2[j] != s1[i]; j++)
             ;
-        if (s2[j] == '\0')
+        if (s2[j] == '\0')//如果到达末尾还是没有一样的就复制过去
             s1[k++] = s1[i];
+        //如果上面的条件未成立就表示有匹配的,那么就丢弃
     }
     s1[k] = '\0';
 }

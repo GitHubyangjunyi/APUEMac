@@ -15,7 +15,6 @@
 
 int main(int argc, const char * argv[]) {
     
-    
     int c;
     int i;              //控制循环的变量,非关键
     int nc;             //单个单词的长度

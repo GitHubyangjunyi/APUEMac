@@ -13,18 +13,22 @@ void printd(int n);
 int main(int argc, const char * argv[]) {
     
     
-    //printd(-2147483648);//无法处理最大的负数
+    printd(-2147483648);//无法处理最大的负数
+    printf("\n");
     printd(-2147483647);
+    printf("\n");
     printd(2147483647);
     printf("\n");
     printd(123);
+    printf("\n");
     printd(10);
+    printf("\n");
     
     
     return 0;
 }
 
-void printd(int n)
+void printd(int n)//无法处理最大的负数
 {
     if (n < 0)
     {
@@ -45,4 +49,4 @@ void printd(int n)
 //在调用printd(123)时,第一次调用的参数n=123,它把12传递给printd的第二次调用,后者又把1传递给printd的第三次调用
 //第三次调用printd时将打印1,然后再返回到第二次调用,从第三次调用返回后的第二次调用同样也将先打印2,然后再返回到第一次调用
 //返回到第一次调用时将打印3,随之结束函数执行
-//另一个好的例子时快速排序QuickSort
+//另一个好的例子时快速排序QuickSort,位于Sort项目文件夹内

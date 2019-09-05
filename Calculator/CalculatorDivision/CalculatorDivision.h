@@ -19,6 +19,6 @@ double pop(void);
 int getop(char[]);
 
 int getch(void);
-void ungetch(int);
+void ungetchs(int);
 
 #endif /* CalculatorDivision_h */

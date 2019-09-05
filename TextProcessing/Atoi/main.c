@@ -37,7 +37,7 @@ int atoi(char s[])
     return n;
 }
 
-int atois(char s[])//这一版本更加通用,可以处理可选的前导空白符以及一个可选的加号或减号,标准库提供一个更完善的strtol,将字符串转换成长整型
+int atois(char s[])//这一版本更加通用,可以处理可选的前导空白符以及一个可选的加号或减号,标准库提供一个更完善的strtol,将字符串转换成长整型P50
 {
     int i, n, sign;
     for (i = 0; isspace(s[i]); i++)//跳过空白符

@@ -8,8 +8,9 @@
 
 #include <stdio.h>
 #include <ctype.h>
+#include <string.h>
 
-int trim(char s[]);
+unsigned long trim(char s[]);
 
 int main(int argc, const char * argv[]) {
     
@@ -22,11 +23,11 @@ int main(int argc, const char * argv[]) {
     return 0;
 }
 
-int trim(char s[])
+unsigned long trim(char s[])
 {
-    int n;
+    unsigned long n;
     //strlen函数返回字符串的长度,循环从字符串末尾开始反方向扫描寻找第一个不是空格符,制表符以及换行符的字符
-    for (n = strlen(s) - 1; n >= 0; n--)//当找到符合条件的第一个字符,或当循环控制变量n变成负数时(即整个字符串扫描完成),循环终止
+    for (n = (unsigned long)strlen(s) - 1; n >= 0; n--)//当找到符合条件的第一个字符,或当循环控制变量n变成负数时(即整个字符串扫描完成),循环终止
         if (s[n] != ' ' && s[n] != '\t' && s[n] != '\n')
             break;
     s[n + 1] = '\0';//即使字符串仅包含空白符或为空,函数也是正确的

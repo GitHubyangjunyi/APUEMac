@@ -13,17 +13,17 @@ int main(int argc, const char * argv[]) {
     
     int c, lastc;
     
-    lastc = 'a';
-    while ((c = getchar()) != EOF)//版本一
-    {
-        if (c != ' ')
-            putchar(c);
-        if (c == ' ')
-            if (lastc != ' ')
-                putchar(c);
-        lastc = c;
-    }
-    
+    lastc = 'a';//初始化为任意一个非空格字符
+//    while ((c = getchar()) != EOF)//版本一
+//    {
+//        if (c != ' ')
+//            putchar(c);
+//        if (c == ' ')
+//            if (lastc != ' ')
+//                putchar(c);
+//        lastc = c;
+//    }
+//
     while ((c = getchar()) != EOF)//版本二
     {
         if (c!=' '||lastc!=' ')//如果c是空格且最后刚输出的是空格,那么不输出此次的空格

@@ -18,10 +18,10 @@ int main(int argc, const char * argv[]) {
         printf("%d\n", *p);
     }
     
-    printf("sizeof(arr) = %d\n", sizeof(arr));
-    printf("sizeof(p) = %d\n", sizeof(p));
-    printf("sizeof(*p) = %d\n", sizeof(*p));
-    printf("sizeof(&p) = %d\n", sizeof(&p));
+    printf("sizeof(arr) = %ld\n", sizeof(arr));
+    printf("sizeof(p) = %ld\n", sizeof(p));
+    printf("sizeof(*p) = %ld\n", sizeof(*p));
+    printf("sizeof(&p) = %ld\n", sizeof(&p));
     
     
     printf("%p\n", &p);

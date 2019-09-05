@@ -9,12 +9,17 @@
 #include <stdio.h>
 
 unsigned rightrot(unsigned x, int n);
+unsigned rightrotversiontwo(unsigned x, int n);
 int wordlength(void);
 
 int main(int argc, const char * argv[]) {
     
     unsigned x = 9;
-    printf("%u\n", (unsigned)rightrot(x, 4));
+    printf("%u\n", (unsigned)rightrot(x, 4));//1001 0000 0000 0000 0000 0000 0000 0000 = 2415919104
+    
+    printf("%u\n", (unsigned)rightrotversiontwo(x, 4));
+    
+    
     
     return 0;
 }
@@ -41,6 +46,21 @@ int wordlength(void)//计算出计算机所使用的字长
     for (i = 1; (v = v >> 1) > 0; i++)
         ;
     return i;
+}
+
+unsigned rightrotversiontwo(unsigned x, int n)
+{
+    int wordlength(void);
+    int rbit;
+    
+    if ((n = n % wordlength()) > 0) {
+        rbit = ~(~0 << n) &x;
+        
+        rbit = rbit << (wordlength() - n);
+        x = x >> n;
+        x = x | rbit;
+    }
+    return x;
 }
 
 //返回将x循环右移n位后得到的值

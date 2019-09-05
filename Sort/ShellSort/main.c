@@ -21,7 +21,7 @@ int main(int argc, const char * argv[]) {
     {
         printf("%d\t", vs[i]);
     }
-    
+    printf("\n");
     
     return 0;
 }
@@ -30,9 +30,9 @@ void shellsort(int v[], int n)
 {
     int gap, i, j, temp;
     
-    for (gap = n/2 ; gap > 0; gap /= 2)
-        for(i = gap; i < n;i++)
-            for (j = i - gap; j >= 0 && v[j] > v[j+gap]; j -= gap)
+    for (gap = n/2 ; gap > 0; gap /= 2)//最外层的循环控制控制两个被比较元素之间的距离gap,从n/2开始,逐步进行对折,直到为0
+        for(i = gap; i < n;i++)//中间的循环用于在元素间移动位置gap每次递增1
+            for (j = i - gap; j >= 0 && v[j] > v[j+gap]; j -= gap)//最内层的循环用于比较各对相距gap个位置的元素,当这两个元素逆序时把它们互换过来
             {
                 temp = v[j];
                 v[j] = v[j + gap];
@@ -40,6 +40,7 @@ void shellsort(int v[], int n)
             }
 }
 
+//先去看InsertSort直接插入排序
 //Shell排序(D.L.Shell于1959年)
 //按递增顺序对v[0]...v[n-1]进行排序
 //基本思想:

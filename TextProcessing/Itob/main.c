@@ -27,21 +27,21 @@ void itob(int n, char s[], int b)
     int i, j, sign;
     void reverse(char s[]);
     
-    if ((sign = n) < 0)
+    if ((sign = n) < 0)//如果n是负数则转为正数
         n = -n;
     i = 0;
-    do
+    do//将整数n转换为一个b进制数
     {
-        j = n % b;    //返回一个0到b-1之间的值
-        s[i++] = (j <= 9) ? j + '0' : j + 'a' - 10;
-    } while ((n /= b) > 0);//    n /= b调整n的值,只要(n /= b) > 0,该过程将一直持续下去
-    if (sign < 0)
+        j = n % b;//返回一个0到b-1之间的值
+        s[i++] = (j <= 9) ? j + '0' : j - 10 + 'a';
+    } while ((n /= b) > 0);//n /= b调整n的值,只要(n /= b) > 0,该过程将一直持续下去
+    if (sign < 0)//如果n是负数添加负号
         s[i++] = '-';
     s[i] = '\0';
     reverse(s);
 }
 
-void reverse(char s[])
+void reverse(char s[])//字符串翻转
 {
     int i, j;
     char temp;

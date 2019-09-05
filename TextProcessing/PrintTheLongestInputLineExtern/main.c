@@ -11,8 +11,8 @@
 #define MAXLINE 1000    //允许输入的最大行长度
 //定义并声明了各个外部变量的类型,编译程序将为它们分配存储单元
 int max;                //目前发现的最长行的长度
-char line[MAXLINE];        //当前的输入行
-char longest[MAXLINE];    //用于保存最长的行
+char line[MAXLINE];     //当前的输入行
+char longest[MAXLINE];  //用于保存最长的行
 
 int getline(void);//为了与老版本C兼容,ANSI C将空参数表看成老版本C的声明方式,并且对参数表不再检查
 void copy(void);//在ANSI C,如果要声明空参数表,必须使用void显式声明

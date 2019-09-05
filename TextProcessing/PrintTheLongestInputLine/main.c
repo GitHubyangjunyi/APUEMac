@@ -17,8 +17,8 @@ int main(int argc, const char * argv[]) {
     
     int len;                //目前行长度
     int max;                //目前发现的最长行的长度
-    char line[MAXLINE];        //当前的输入行
-    char longest[MAXLINE];    //用于保存最长的行
+    char line[MAXLINE];     //当前的输入行
+    char longest[MAXLINE];  //用于保存最长的行
     
     max = 0;
     while((len = getline(line, MAXLINE)) > 0)

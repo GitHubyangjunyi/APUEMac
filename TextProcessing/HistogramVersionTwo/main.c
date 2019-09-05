@@ -10,8 +10,8 @@
 
 #define MAXHIST 15    //直方图的最大长度
 #define MAXWORD 11    //允许的单词最大长度
-#define IN      1    //词里面
-#define OUT     0    //词外面
+#define IN      1     //词里面
+#define OUT     0     //词外面
 
 int main(int argc, const char * argv[]) {
     
@@ -81,7 +81,7 @@ int main(int argc, const char * argv[]) {
     if (ovflow > 0)//7.输出超长的单词的个数
         printf("There are %d words >= %d\n", ovflow, MAXWORD);
     
-    int GETCHAR = getchar();
+    
     return 0;
 }
 

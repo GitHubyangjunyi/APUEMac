@@ -40,8 +40,10 @@ int main(int argc, const char * argv[]) {
     printf("%d\n", DEC);
     
     enum months clearmonth = MAY;
-    printf("clearmonth = %d\n", clearmonth);
+    enum months clearmonthx = 100;//编译器不会对值进行检查
     
+    printf("clearmonth = %d\n", clearmonth);
+    printf("clearmonthx = %d\n", clearmonthx);//编译器不会对值进行检查而输出100
     
     
     return 0;
