@@ -19,6 +19,6 @@ typedef struct node
 }LinkedListNode;
 
 LinkedListNode *CreateRearCircleLinkedList(ElemType a[], int n);
-void *ConnectTwoCircleLinkedList(LinkedListNode *ra, LinkedListNode *rb);
+void ConnectTwoCircleLinkedList(LinkedListNode *ra, LinkedListNode *rb);
 
 #endif /* CircleLinkedList_h */

@@ -8,15 +8,25 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <dirent.h>
 #include <errno.h>
 #include <fcntl.h>
 #include <getopt.h>
 #include <libgen.h>
+#include <pthread.h>
+#include <signal.h>
 #include <string.h>
+#include <syslog.h>
+#include <time.h>
 #include <unistd.h>
+#include <arpa/inet.h>
 #include <sys/ioctl.h>
+#include <sys/mman.h>
+#include <sys/socket.h>
 #include <sys/stat.h>
+#include <sys/time.h>
 #include <sys/types.h>
+#include <sys/wait.h>
 
 int main(int argc, const char * argv[]) {
     
@@ -69,28 +79,33 @@ int main(int argc, const char * argv[]) {
     printf("%p\n", px);
     
     
+    //单进程求素数
+    int i, j, mark;
+    
+    for (i = 30000000; i <= 30000200; i++) {
+            mark = 1;
+            for (j = 2; j < i/2; j++) {
+                if (i % j == 0) {
+                    mark = 0;
+                    break;
+                }
+            }
+            if (mark) {
+                printf("%d is prime\n", i);
+            }
+        }
     
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    return 0;
+    exit(0);
 }
 
 //新建Xcode项目，然后使用target管理不同的小项目，每个target将运行不同的main函数
 //最好新建一个target就进行排序,并且在Manage Schemes处以及APUEMac项目管理处将target排序防止工程越来越乱
 //最好新建一个target就进行排序,并且在Manage Schemes处以及APUEMac项目管理处将target排序防止工程越来越乱
 //最好新建一个target就进行排序,并且在Manage Schemes处以及APUEMac项目管理处将target排序防止工程越来越乱
+//由于信号会打断阻塞的系统调用,所以这里的文件I/O程序没有一个是正确的
+//由于信号会打断阻塞的系统调用,所以这里的文件I/O程序没有一个是正确的
+//由于信号会打断阻塞的系统调用,所以这里的文件I/O程序没有一个是正确的
 
 /*
  //参考书目:
@@ -109,6 +124,8 @@ int main(int argc, const char * argv[]) {
 //嵌入式C语言自我修养 王利涛 著 知乎专栏 (主要是讲解GNU C语言语法扩展)
 //Linux环境编程:从应用到内核
 //Linux程序设计
+//Linux下C语言应用编程 杨铸 著
+//B站视频嵌入式开发-APUE 我赢职场 李慧芹
 */
 
 /*
@@ -245,22 +262,52 @@ int main(int argc, const char * argv[]) {
     //5//CalculatorVar      添加变量处理命令 练习4-6
 //ConditionalCompilation    条件编译规则说明
 //ConstRestrict     const限定
+//ControlProcess    进程控制 APUE第八章
+    //6//Execl              execl函数示例
+    //11//ExeclSleep        
+    //1//ExitValue          不同的exit值 APUEP191
+    //9//Fork               fork函数 APUEP183
+    //7//ForkExecl          execl函数示例2
+    //17//ForkFile            fork创建子进程对文件描述符的影响
+    //3//MultiprocessingPrime多进程求素数
+    //5//MultiprocessingPrimeCrossPartition多进程求素数交叉分配法
+    //4//MultiprocessingPrimeWait多进程求素数回收子进程wait
+    //-1//Processcontrol    进程控制实现简单的Shell APUEP9
+    //0//Processsignal      信号实现简单的Shell APUEP14
+    //8//RaceCondition      竞争条件 APUEP197
+    //12//Setuid            setuid配合文件设置用户ID位实现权限提升
+    //14//Shell             模拟Shell 来自B站视频嵌入式开发-APUE
+    //13//Shell2            使用fork和exec实现Shell Linux下C语言应用编程P100
+    //15//System            system函数
+    //16//SystemImplementation  system函数简单实现 APUEP212
+    //10//Vfork             vfork函数改变了父进程 APUEP187
+    //2//ZombieProcess      僵尸进程
 //EOFS              EOF测试
+//Errorhandle       出错处理 APUEP12
 //FileAPI           系统调用文件API
+    //11//CatImplementation 实现cat程序,整体框架来自ForceWrite 来自B站视频嵌入式开发-APUE
+    //12//CatImplementationTimeControl  流控算法 来自B站视频嵌入式开发-APUE
+    //13//CatImplementationTimeControlAlarm 流控算法alarm 来自B站视频嵌入式开发-APUE
+    //14//CatImplementationTimeControlTokenBucket 流控算法改进令牌桶实现 来自B站视频嵌入式开发-APUE
     //3//Close
     //4//Copy
     //5//CopySlow
+    //10//ForceWrite        重复写避免打断 来自B站视频嵌入式开发-APUE
     //8//Iotcl
     //7//Open               创建文件并测试文件的属性
     //2//Read               测试文件所具有的属性
     //6//Stat
     //1//Write
+    //9//Lseek              设置文件偏移制造空洞文件 APUEP55
 //FileAPIStd        标准I/O库文件API
     //2//CopyStd
     //3//ErgodicDir         递归遍历文件夹
     //4//ErgodicDirImpru    递归遍历文件夹改进版本,可以通过命令行参数指定文件夹
+    //7//Fflush             刷新缓冲区
     //1//Fopen
+    //8//Glob               路径模式匹配 未完成 来自B站视频嵌入式开发-APUE glob函数设计的通配符并不通用-来自UNIX编程艺术
     //5//Mnapmini           内存映射函数文件共享
+    //6//Myls               ls命令的简单实现
 //FirstDemo         C和指针第一章的Demo
 //FormatControl     格式控制
 //FunctionPointer   函数指针
@@ -348,9 +395,36 @@ int main(int argc, const char * argv[]) {
 //POSIXThread           POSIXT线程
     //2//DeadLock               死锁
     //1//MultiThreadCounter     多线程计数器冲突
-    ////
+    //3//ThreadID               打印线程ID
+//ProcessEnvironment进程环境 APUE第七章
+    //1//Environ    环境变量指针
+    //2//Setjmp     非局部跳转APUEP173
+    //3//SetjmpImplementation setjmp实现
+//ProcessRelations  进程关系 APUE第九章
+    //1//Daemon                 守护进程 来自B站视频嵌入式开发-APUE
+    //2//Syslog                 系统日志 来自B站视频嵌入式开发-APUE
 //Search                搜索
     //1//Binsearch              折半查找(数组v必须以升序排列) 练习3-1 P47
+//Signal            信号机制 APUE第十章
+    //2//Alarm                  定时器 来自B站视频嵌入式开发-APUE
+    //3//AlarmCounter           在5秒内一直累加计数器(关于使用时间戳和使用信号哪个更精确哪个资源占用少的实验,还有关于GCC优化问题) 来自B站视频嵌入式开发-APUE
+    //xx//AlarmMulti            使用单一计时器构造一组函数实现任意数量的计时器 来自B站视频嵌入式开发-APUE 未完成
+    //17//CriticalZoneProtection保护临界区不被信号中断 APUEP286
+    //6//NonReentrant           不可重入函数(大概率导致段错误) APUEP263
+    //5//Setitimer              使用setitimer替换alarm重构cat实用程序 来自B站视频嵌入式开发-APUE 相当于cat实用程序最新版
+    //1//SIGINTWrite            响应打断信号导致中断系统调用 来自B站视频嵌入式开发-APUE
+    //14//SignalDrive           信号驱动程序 来自B站视频嵌入式开发-APUE 使用pause无法完成信号驱动,因为时间窗口导致信号丢失
+    //15//SignalDriveFix        信号驱动程序 来自B站视频嵌入式开发-APUE
+    //16//SignalDriveFixRT      信号驱动程序实时信号 来自B站视频嵌入式开发-APUE Linux环境运行
+    //7//SignalSIGCLD           同时使用wait和子进程退出信号SIGCLD的行为
+    //0//SignalSIGUSR           捕获信号 APUEP257
+    //13//Sigpending            信号设置和sigprocmask实例 APUEP276
+    //12//Sigprocmask           使用信号屏蔽字阻塞与恢复信号 来自B站视频嵌入式开发-APUE
+    //11//SigSetFunctionImplementmentaton 信号集操作函数实现 APUEP274
+    //8//SleepImplementation    sleep简化而不完整的实现 APUEP269
+    //9//TimeLimitRead          带时间限制调用read APUEP270
+    //10//TimeLimitReadLongjmp  带时间限制调用read APUEP272
+    //4//TokenBucketLib         令牌桶封装成库并给cat程序使用 来自B站视频嵌入式开发-APUE
 //Sort                  排序算法
     //4//BubbleSort             冒泡排序 数据结构与算法分析新视角P404
     //1//InsertSort             插入排序 扑克牌插入
@@ -386,11 +460,14 @@ int main(int argc, const char * argv[]) {
     //2//StructPointersLite     指向结构的指针以及运算符->简化版(来自C和指针 Kenneth A.Reek 著)
     //3//StructPointersMajor    指向结构的指针以及运算符->专业版(来自知乎->与.运算符的区别,然而我把知乎的专业内容搬运到StructPointersLite那边了)
     //4//StructurePuzzle        *和->结合
+//SystemDataAndInformation  系统数据文件和信息 APUE第6章
+    //1//Getpwuid               获取用户信息以及密码校验crypt
+    //2//Time                   时间函数
 //SystemEnvironment 系统环境信息的获取
-    //APUEMac                   如何写好一个main函数的参数验证//未修正
+    //0//APUEMac                如何写好一个main函数的参数验证//未修正
     //1//ArgCheck               参数验证
+    //3//Atexit                 钩子函数 来自B站视频嵌入式开发-APUE
     //2//Getopt                 参数获取函数//有偏差
-    //
 //TextProcessing    文本处理
     //标准库提供的输入/输出模型:
     //无论文本从何处输入,输出到何处,其输入/输出都是按照字符流的方式处理,文本流是多行字符构成的字符序列,而每行字符则由0个或多个字符组成,行末是一个换行符

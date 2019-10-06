@@ -7,6 +7,7 @@
 //
 
 #include "CircleLinkedList.h"
+#include <stdlib.h>
 
 LinkedListNode * CreateRearCircleLinkedList(ElemType a[], int n)//尾插法建立循环链表,输入结点值数组,结点个数,输出链表尾指针
 {
@@ -26,7 +27,7 @@ LinkedListNode * CreateRearCircleLinkedList(ElemType a[], int n)//尾插法建�
     return p;        //返回尾指针
 }
 
-void * ConnectTwoCircleLinkedList(LinkedListNode * ra, LinkedListNode * rb)//将两个循环链表链接成一个,输入两个循环链表的尾指针
+void ConnectTwoCircleLinkedList(LinkedListNode * ra, LinkedListNode * rb)//将两个循环链表链接成一个,输入两个循环链表的尾指针
 {
     LinkedListNode *p;
     p = ra->next;
@@ -35,4 +36,5 @@ void * ConnectTwoCircleLinkedList(LinkedListNode * ra, LinkedListNode * rb)//将
     rb->next = p;
     //若在单链表或用头指针表示的单循环链表上执行这种链接操作,都需要遍历第一个链表,找到最后的结点,执行时间是O(n)
     //如果采用尾指针表示单循环链表,则只需修改指针而无需遍历,执行时间是O(1)
+    
 }
